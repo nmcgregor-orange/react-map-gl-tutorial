@@ -97,3 +97,7 @@ margin-top: 3px;
   0% {box-shadow: 0px 0px 0px 0px rgb(41, 114, 102);} 
   100% {box-shadow: 0px 0px 0px 50px rgba(0, 0, 0, 0.0);}
 }
+
+.marketNum {
+  color: white;
+}

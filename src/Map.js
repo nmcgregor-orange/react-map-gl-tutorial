@@ -17,45 +17,78 @@ class Map extends React.Component {
           };
     }
 
-    // state = {
-    //   viewport: {
-    //     width: 2400,
-    //     height: 1200,
-    //     latitude: 37.7577,
-    //     longitude: -122.4376,
-    //     zoom: 12
-    //   }
-    // };
+ 
   
     render() {
-      const { stores } = this.props;
+        const { stores } = this.props;
 
-      const storesList = stores ? (
+        if(this.state.viewport.zoom > 6.2){
+
+        }else{
+
+        }
+
+        const marketList =[];  
+        const smallStoresList = stores ? (
+        //   const areaList = [];
+        stores.map(store => {
+        const JsonStore = JSON.parse(store);
+        if(!marketList.includes(JsonStore.marketNumber)){
+            console.log("ml"+ (marketList.includes(JsonStore.marketList))+JsonStore.marketNumber);
+            marketList.push(JsonStore.marketNumber);
+            return <Marker 
+                offsetTop={-25} 
+                key={JsonStore.storeId} 
+                latitude={JsonStore.coordinates.latitude} 
+                longitude={JsonStore.coordinates.longitude}>
+                <div className="pulseSpot marketNum">
+                {JsonStore.name}
+                {JsonStore.marketNumber}
+            </div>
+            </Marker>
+        }
+        })
+
+        ): null;
+        console.log(marketList);
+
+
+        const storesList = stores ? (
         stores.map(store => {
             const JsonStore = JSON.parse(store);
+            console.log(JsonStore.name)
             return <Marker offsetTop={-25} 
                 key={JsonStore.storeId} 
                 latitude={JsonStore.coordinates.latitude} 
                 longitude={JsonStore.coordinates.longitude}>
-                <div className="pulseSpot">
+                <div className="pulseSpot marketNum">
+                {JsonStore.name}
+                {JsonStore.marketNumber}
                 </div>
             </Marker>
-      })
-      ) : null;
-      return (
-        <div className="mapSize">
-        {console.log(stores)}
-          <MapGL
-            {...this.state.viewport}
-            onViewportChange={(viewport) => this.setState({viewport})}
-            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-            mapStyle={'mapbox://styles/nmcgregor-orange/cjwjov0dt0xcc1cmpe7wt73a2'}
-          >
-          {storesList} : 
-            
-          </MapGL>
-        </div>
-      );
+        })
+        ) : null;
+
+        let viewList;
+        if(this.state.viewport.zoom > 6.2){
+            viewList = storesList;
+        }else{
+            viewList = smallStoresList;
+        }
+      
+        return (
+            <div className="mapSize">
+                <MapGL
+                {...this.state.viewport}
+                onViewportChange={(viewport) => this.setState({viewport})}
+                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                mapStyle={'mapbox://styles/nmcgregor-orange/cjwjov0dt0xcc1cmpe7wt73a2'}
+                >
+                {viewList} : 
+                
+                </MapGL>
+            </div>
+        );
     }
 }
 
