@@ -20,7 +20,7 @@ class App extends React.Component {
         (result) => {
             this.setState({
                 isLoaded: true,
-                stores: Object.values(result.data).slice(0,10),
+                stores: Object.values(result.data).slice(0,1000),
             });
         },
     )

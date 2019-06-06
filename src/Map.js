@@ -10,9 +10,9 @@ class Map extends React.Component {
             viewport: {
               width: 2400,
               height: 1200,
-              latitude: 37.7577,
-              longitude: -122.4376,
-              zoom: 3.7
+              latitude: 39.5086,
+              longitude: -96.1559,
+              zoom: 4.5
             }
           };
     }
@@ -37,13 +37,13 @@ class Map extends React.Component {
             console.log("ml"+ (marketList.includes(JsonStore.marketList))+JsonStore.marketNumber);
             marketList.push(JsonStore.marketNumber);
             return <Marker 
-                offsetTop={-25} 
+                offsetTop={-20} 
                 key={JsonStore.storeId} 
                 latitude={JsonStore.coordinates.latitude} 
                 longitude={JsonStore.coordinates.longitude}>
                 <div className="pulseSpot marketNum">
                 {JsonStore.name}
-                {JsonStore.marketNumber}
+                {/* {JsonStore.marketNumber} */}
             </div>
             </Marker>
         }
@@ -57,20 +57,20 @@ class Map extends React.Component {
         stores.map(store => {
             const JsonStore = JSON.parse(store);
             console.log(JsonStore.name)
-            return <Marker offsetTop={-25} 
+            return <Marker offsetTop={-20} 
                 key={JsonStore.storeId} 
                 latitude={JsonStore.coordinates.latitude} 
                 longitude={JsonStore.coordinates.longitude}>
                 <div className="pulseSpot marketNum">
                 {JsonStore.name}
-                {JsonStore.marketNumber}
+                {/* {JsonStore.marketNumber} */}
                 </div>
             </Marker>
         })
         ) : null;
 
         let viewList;
-        if(this.state.viewport.zoom > 6.2){
+        if(this.state.viewport.zoom > 7){
             viewList = storesList;
         }else{
             viewList = smallStoresList;
