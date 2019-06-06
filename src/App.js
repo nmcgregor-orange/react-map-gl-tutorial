@@ -15,12 +15,12 @@ class App extends React.Component {
   }
 
   getItems() {
-    axios.get('http://localhost:5000/api/v1/stores')
+    axios.get('http://localhost:3001/api/v1/stores')
     .then(
         (result) => {
             this.setState({
                 isLoaded: true,
-                stores: result.data.stores,
+                stores: Object.values(result.data).slice(0,10),
             });
         },
     )
